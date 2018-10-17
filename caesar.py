@@ -1,10 +1,24 @@
 import string
+import argparse
+import sys
+
+
+def arguments():
+    parser = argparse.ArgumentParser(
+        description='Caesar encryption',
+    )
+
+    parser.add_argument('-s', '--string', nargs='*', help='enter string to encrypt: -s encrypt me')
+    parser.add_argument('-k', '--key', type=int, help='key to shift: -k 5')
+
+    args_list = parser.parse_args()
+
+    return args_list
 
 
 def encrypt(message, shift):
-    words = message.split()
     encrypted = ""
-    for word in words:
+    for word in message:
         encrypted_word = ""
         for letter in word:
             if letter.lower() in string.ascii_lowercase:
@@ -21,7 +35,14 @@ def encrypt(message, shift):
     return encrypted
 
 
-print(encrypt("caesar cipher 1", 5))
+def main():
+    c_args = arguments()
+    if len(c_args.string) == 0:
+        sys.exit("You didn\'t enter string to encrypt. Try again")
+    encrypted_message = encrypt(c_args.string, c_args.key)
+    print(f"Your encrypted message is: \"{encrypted_message}\"")
 
 
+if __name__ == '__main__':
+    main()
 

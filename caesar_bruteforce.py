@@ -1,11 +1,17 @@
 import string
+import sys
+
+if len(sys.argv) > 1:
+    encrypted_msg = sys.argv[1]
+else:
+    encrypted_msg = input("You didn't enter encrypted message. Enter it now: ")
 
 
-def bruteforce(encrypted_msg):
+def bruteforce(msg):
 
     for key in range(len(string.ascii_lowercase)):
         translation = ""
-        for letter in encrypted_msg:
+        for letter in msg:
             if letter.lower() in string.ascii_lowercase:
                 index = string.ascii_lowercase.find(letter.lower()) - key
                 if index < 0:
@@ -13,7 +19,7 @@ def bruteforce(encrypted_msg):
                 translation += string.ascii_lowercase[index]
             else:
                 translation += letter
-        print(f"Key {key}: {translation}")
+        print(f"Key {key}: {msg} -> {translation}")
 
 
-bruteforce("okci dy lboku drsc xygknkic")
+bruteforce(encrypted_msg)
