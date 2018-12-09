@@ -1,6 +1,6 @@
 # python 2.7 only
 import argparse
-import zipfile, time
+import zipfile, time, sys
 from multiprocessing import Pool
 from functools import partial
 import contextlib
@@ -29,7 +29,11 @@ def main():
 
     arguments = check_args()
 
+    if arguments.zip == None or arguments.wordlist == None:
+        sys.exit('Blank arguments. Enter "python zipRIP.py -h" for help')
+
     z_file = zipfile.ZipFile(arguments.zip)
+
 
     with open(arguments.wordlist, 'r') as passes:
         print "Start cracking. Wait..."
